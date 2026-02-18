@@ -10,6 +10,17 @@ NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F',
               'F#', 'G', 'G#', 'A', 'A#', 'B']
 
 
+def peak_normalize(y, target_peak=0.999):
+    """
+    Peak-normalize audio to target_peak.
+    """
+    peak = np.max(np.abs(y))
+
+    if peak == 0:
+        return y
+
+    return (y / peak) * target_peak
+
 def detect_root_chroma(y, sr):
     """
     Detect root pitch using chroma CQT.
@@ -65,8 +76,10 @@ def process_file(filepath, output_dir):
         }
     )
 
+    y_normalised = peak_normalise(y_shifted)
+
     output_path = Path(output_dir) / Path(filepath).name
-    sf.write(output_path, y_shifted, sr)
+    sf.write(output_path, y_normalised, sr)
 
     print(f"  Saved: {output_path}")
 
