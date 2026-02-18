@@ -10,7 +10,7 @@ NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F',
               'F#', 'G', 'G#', 'A', 'A#', 'B']
 
 
-def peak_normalize(y, target_peak=0.999):
+def peak_normalise(y, target_peak=0.999):
     """
     Peak-normalize audio to target_peak.
     """
